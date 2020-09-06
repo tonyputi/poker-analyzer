@@ -90,7 +90,7 @@ class PokerAnalyzer extends Command
             if(!empty($line))
             {
                 $cards = array_chunk(explode(' ', $line), 5);
-                Hand::create($analyzer->analyze($cards[0], $cards[1]));
+                Hand::create($analyzer->analyze($cards));
 
                 $bar->advance();
             }
