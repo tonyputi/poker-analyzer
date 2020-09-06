@@ -33,13 +33,29 @@
                     </form>
 
                     @if($hands->count())
-                    <table class="table table-striped table-hover">
-                        <caption class="text-right">
-                            @foreach($players as $player)
-                            <div>Player {{ $player->i }} wins {{ $player->wins }} times</div>
-                            @endforeach                            
-                        </caption>
 
+                    <div class="card-deck mb-3">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <span style="font-size: 48px; color: Dodgerblue;">
+                                    <i class="fas fa-user"></i>
+                                </span>    
+                                <h4 class="card-title">Player 1</h4>
+                                <h5>Win: {{ $players[0]->wins }} times</h5>                                
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <span style="font-size: 48px; color: Tomato;">
+                                    <i class="fas fa-user"></i>
+                                </span>    
+                                <h4 class="card-title">Player 2</h4>
+                                <h5>Win: {{ $players[1]->wins }} times</h5>                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="table table-striped table-hover">
                         <thead class="thead-light">
                             <tr>
                                 <th>#</th>
@@ -53,15 +69,13 @@
                         <tbody>
                         @foreach($hands as $hand)
                             <tr>
-                                <th class="align-middle" scope="row">{{ $hand->id }}</th>
-                                {{-- <td>{{ $hand->p1_cards }}</td> --}}
+                                <th class="align-middle" scope="row">{{ $hand->id }}</th>                                
                                 <td>
                                     @foreach($hand->p1_cards_images as $image)
                                     <img src="{{ asset("images/cards/$image") }}" height="64" />
                                     @endforeach
                                 </td>
-                                <td class="align-middle">{{ $hand->p1_rank }}</td>
-                                {{-- <td>{{ $hand->p2_cards }}</td> --}}
+                                <td class="align-middle">{{ $hand->p1_rank }}</td>                                
                                 <td>
                                     @foreach($hand->p2_cards_images as $image)
                                     <img src="{{ asset("images/cards/$image") }}" height="64" />
