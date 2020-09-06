@@ -6,8 +6,18 @@ use Exception;
 
 class PlayerHand
 {
+    /**
+     * Constant representing high ace
+     * 
+     * @var integer
+     */
     const HIGH_ACE = 14;
 
+    /**
+     * Available ranks with key representing the weight of the rank
+     * 
+     * @var array
+     */
     const ranks = [
         9 => 'RoyalFlush',
         8 => 'StraightFlush',
@@ -43,19 +53,12 @@ class PlayerHand
     protected $rank = 0;
 
     /**
-     * The rank name of the player
+     * The rankCards used to compare high card when same result
+     * occur on both players side
      * 
-     * @var integer
+     * @var array
      */
-    protected $rankName = 'HighCard';
-
-    /**
-     * The checksum used to compare high card when same result
-     * happen on both players hand
-     * 
-     * @var integer
-     */
-    protected $checksum = [];
+    protected $rankCards = [];
 
     /**
      * The cards 
@@ -67,7 +70,7 @@ class PlayerHand
     /**
      * Class constructor
      * 
-     * @param array  $cards     
+     * @param array  $cards
      */
     public function __construct(array $cards)
     {
@@ -83,8 +86,8 @@ class PlayerHand
             $this->cards[] = new Card($card);
         }
 
-        // always set the checksum to highest card when instantiating
-        $this->checksum = $this->getValues();
+        // always set the rankCards to highest card when instantiating
+        $this->rankCards = $this->getValues();
     }
 
     /**
@@ -98,7 +101,7 @@ class PlayerHand
         {
             $method = "has{$rank}";
 
-            if(method_exists($this, $method))            
+            if(method_exists($this, $method))
             {                
                 if($this->$method())
                 {
@@ -132,9 +135,9 @@ class PlayerHand
             return false;
         }
 
-        $this->setRank(9);
+        $this->rank = 9;
         $this->highAce = true;
-        $this->checksum = $values;
+        $this->rankCards = $values;
         $this->kickers = [];
 
         return true;
@@ -166,8 +169,8 @@ class PlayerHand
             return false;
         }
 
-        $this->setRank(8);
-        $this->checksum = $values;
+        $this->rank = 8;
+        $this->rankCards = $values;
         $this->kickers = [];
 
         return true;
@@ -191,10 +194,11 @@ class PlayerHand
             return false;
         }
 
-        $this->setRank(7);
+        $this->rank = 7;
 
-        // using the weight/value of the card with 4 occurrence as checksum
-        $this->checksum = array_keys(array_filter($occurrences, fn ($value) => $value == 4));
+        // using the weight/value of the card with 4 occurrence as rankCards
+        $this->rankCards = array_keys(array_filter($occurrences, fn ($value) => $value == 4));
+
         // getting kickers card
         $this->kickers = array_keys(array_filter($occurrences, fn ($value) => $value == 1));
 
@@ -219,10 +223,10 @@ class PlayerHand
             return false;
         }
 
-        $this->setRank(6);
+        $this->rank = 6;
 
-        // using the weight/value of the card with 3 occurrence as checksum
-        $this->checksum = $values;
+        // using the weight/value of the card with 3 occurrence as rankCards
+        $this->rankCards = $values;
         $this->kickers = [];
 
         return true;
@@ -242,9 +246,9 @@ class PlayerHand
             return false;
         }
 
-        $this->setRank(5);
+        $this->rank = 5;
 
-        $this->checksum = $this->getValues();
+        $this->rankCards = $this->getValues();
         $this->kickers = [];
         
         return true;
@@ -263,10 +267,10 @@ class PlayerHand
         // the next ones must be 11,12,13,14 or better J,Q,K,A
         if($values[4] == 10)
         {
-            $this->setRank(4);
-            $this->checksum = $values;
-            $this->kickers = [];
             $this->highAce = true;
+            $this->rank = 4;
+            $this->rankCards = $values;
+            $this->kickers = [];            
 
             return true;
         }
@@ -282,8 +286,8 @@ class PlayerHand
             return false;
         }
 
-        $this->setRank(4);
-        $this->checksum = $values;
+        $this->rank = 4;
+        $this->rankCards = $values;
         $this->kickers = [];
 
         return true;
@@ -307,10 +311,11 @@ class PlayerHand
             return false;
         }
 
-        $this->setRank(3);
+        $this->rank = 3;
 
-        // using the weight/value of the card with 4 occurrence as checksum
-        $this->checksum = array_keys(array_filter($occurrences, fn ($value) => $value == 3));
+        // using the weight/value of the card with 3 occurrence as rankCards
+        $this->rankCards = array_keys(array_filter($occurrences, fn ($value) => $value == 3));
+
         // getting kickers card
         $this->kickers = array_keys(array_filter($occurrences, fn ($value) => $value != 1));
 
@@ -335,10 +340,10 @@ class PlayerHand
             return false;
         }
 
-        $this->setRank(2);
+        $this->rank = 2;
 
         // getting the cards value for two pairs outcome
-        $this->checksum = array_keys(array_filter($occurrences, fn ($value) => $value == 2));
+        $this->rankCards = array_keys(array_filter($occurrences, fn ($value) => $value == 2));
 
         // getting kickers card
         $this->kickers = array_keys(array_filter($occurrences, fn ($value) => $value == 1));
@@ -362,25 +367,15 @@ class PlayerHand
             return false;
         }
 
-        $this->setRank(1);
+        $this->rank = 1;
 
         // getting the cards value for two pairs outcome
-        $this->checksum = array_keys(array_filter($occurrences, fn ($value) => $value == 2));
+        $this->rankCards = array_keys(array_filter($occurrences, fn ($value) => $value == 2));
 
         // getting kickers card
         $this->kickers = array_keys(array_filter($occurrences, fn ($value) => $value != 2));
 
         return true;
-    }
-
-    /**
-     * Returning the highest card
-     * 
-     * @return integer
-     */
-    public function getHighCard()
-    {
-        return max($this->getValues());
     }
 
     /**
@@ -408,13 +403,13 @@ class PlayerHand
      * 
      * @return array
      */
-    public function getChecksum()
+    public function getRankCards()
     {
-        return $this->checksum;
+        return $this->rankCards;
     }
 
     /**
-     * Returning the kickers numbers
+     * Returning the kickers cards/numbers
      * 
      * @return array
      */
@@ -424,13 +419,30 @@ class PlayerHand
     }
 
     /**
-     * Return all cards as string
+     * Return all sorted cards as array
      *      
      * @return array
      */
     public function getCards()
     {
-        return array_map(fn ($card) => (string)$card, $this->cards);
+        $values = $this->getValues();
+        $cards  = [];
+
+        foreach($values as $i => $value)
+        {
+            foreach($this->cards as $card)
+            {
+                if($card->value() == $value)
+                {
+                    $cards[] = (string)$card;
+                    break;
+                }
+            }
+        }
+
+        return $cards;
+
+        // return array_map(fn ($card) => (string)$card, $this->cards);
     }
 
     /**
@@ -458,27 +470,12 @@ class PlayerHand
     }
 
     /**
-     * Set the rank and the rank name
-     * 
-     * @return array
-     */
-    protected function setRank(int $rank)
-    {
-        $this->rank = $rank;
-        $this->rankName = static::ranks[$rank];
-    }
-
-    /**
      * Checking if values in array are sequentials returning a boolean
      * 
      * @return boolean
      */
-    protected function hasSequentialValues(array $values)
+    public function hasSequentialValues(array $values)
     {
-        // with this simple equation we can know if array contains 
-        // consecutive numbers only
-        // return (max($values) - min($values) == count($values) - 1);
-
         sort($values);
 
         for($i = 0; $i < count($values); $i++)

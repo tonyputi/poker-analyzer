@@ -4,9 +4,13 @@ namespace App\Services;
 
 use Exception;
 
-// TODO: don't forget to implement ArrayAccess maybe can be helpful
 class Card
 {
+    /**
+     * Suit types
+     * 
+     * @var array
+     */
     const SUITS = [
         'C' => 'club',
         'D' => 'diamond',
@@ -14,6 +18,11 @@ class Card
         'H' => 'heart'
     ];
 
+    /**
+     * Values types
+     * 
+     * @var array
+     */
     const VALUES = [
         '2' => 2, 
         '3' => 3, 
@@ -38,10 +47,9 @@ class Card
     protected $card;
 
     /**
-     * Analyze pocker hand and return result
+     * Class constructor
      * 
-     * @param array  $hand
-     * @return array
+     * @param array  $card
      */
     public function __construct(string $card)
     {
@@ -76,11 +84,11 @@ class Card
     /**
      * Return the value of the card
      * 
-     * @return integer
+     * @return string
      */
     public function symbol()
     {      
-        return $this->card[0];          
+        return $this->card[0];
     }
 
     /**
@@ -90,7 +98,7 @@ class Card
      */
     public function suit()
     {
-        return $this->card[1];        
+        return $this->card[1];
     }
 
     /**
