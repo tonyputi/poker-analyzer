@@ -65,6 +65,15 @@ generate the application key
 
 `php artisan key:generate`
 
+# Unit Test
+
+Two main unit test are provided with this project:
+
+1. Testing all the possible ranks
+2. Testing hands for all possible ranks including some special case
+
+`php artisan test`
+
 # Usage
 
 You can use the software in two different ways.
