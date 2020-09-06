@@ -13,7 +13,7 @@ First clone the project on github
 
 jump inside the project
 
-`cd united-remote`
+`cd united-remote/src`
 
 install composer dependencies
 
@@ -83,4 +83,4 @@ In this way a web user interface will serve the application
 
 In this way the software will evalute the input file and print the results on the command line as a table.
 
-`php artisan poker:analyze docs/hands.txt`
+`php artisan poker:analyze ../docs/hands.txt`
