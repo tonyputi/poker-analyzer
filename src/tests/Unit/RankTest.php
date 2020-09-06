@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use App\Services\PlayerHand;
 use PHPUnit\Framework\TestCase;
 
-class PlayerTest extends TestCase
+class RankTest extends TestCase
 {
     /**
      * Test for valid royal flush
