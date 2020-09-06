@@ -86,7 +86,7 @@ build the docker image for the project
 
 run the docker image
 
-`docker run -it -p 8080:8000 united-remote php artisan serve --host 0.0.0.0`
+`docker run -it -p 8000:8000 united-remote php artisan serve --host 0.0.0.0`
 
 ## Without docker
 
