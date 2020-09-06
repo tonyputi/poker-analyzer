@@ -78,7 +78,17 @@ Two main unit test are provided with this project:
 
 You can use the software in two different ways.
 
-## Web browser
+## With docker
+
+build the docker image for the project
+
+`docker build . -t united-remote`
+
+run the docker image
+
+`docker run -it -p 8080:8000 united-remote php artisan serve --host 0.0.0.0`
+
+## Without docker
 
 In this way a web user interface will serve the application
 
