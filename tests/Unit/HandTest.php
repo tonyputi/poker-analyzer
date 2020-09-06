@@ -247,9 +247,32 @@ class HandTest extends TestCase
 
         foreach($hands as $hand)
         {
-            $result = $analyzer->analyze($hand);
-            // dd($result);
+            $result = $analyzer->analyze($hand);            
             $this->assertTrue($result['p1_rank'] == 'OnePair');
+            $this->assertTrue($result['winner'] == 1);
+        }
+    }
+
+    /**
+     * Test player one winning with straight.
+     *
+     * @return void
+     */
+    public function testPlayerOneHighCard()
+    {
+        $hands = [
+            [
+                ['AS', '8H', '4C', 'KD', 'JD'], 
+                ['2C', '3D', 'KS', 'JH', '5C']
+            ]
+        ];        
+
+        $analyzer = new PokerAnalyzer;
+
+        foreach($hands as $hand)
+        {
+            $result = $analyzer->analyze($hand);            
+            $this->assertTrue($result['p1_rank'] == 'HighCard');
             $this->assertTrue($result['winner'] == 1);
         }
     }
