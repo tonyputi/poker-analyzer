@@ -5,6 +5,7 @@ results in terms of performance such as using bit math but this is not the purpo
 
 The involved files for that test are:
 
+```
 src
 ├── app
 │   ├── Console
@@ -38,7 +39,7 @@ src
     └── Unit
         ├── HandTest.php
         └── PlayerTest.php
-
+```
 
 Created by Filippo Sallemi
 
