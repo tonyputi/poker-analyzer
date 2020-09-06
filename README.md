@@ -25,6 +25,12 @@ copy the enviroment
 
 ## Using SQLite
 
+open and update the .env file
+
+```
+DB_CONNECTION=sqlite
+```
+
 create the file where to store data
 
 `touch database/database.sqlite`
@@ -33,12 +39,14 @@ create the file where to store data
 
 open and update the .env file in according to your mysql configuration
 
-```DB_CONNECTION=mysql
+```
+DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=laravel
+DB_DATABASE=united-remote
 DB_USERNAME=root
-DB_PASSWORD=```
+DB_PASSWORD=your-password
+```
 
 execute database migration
 
