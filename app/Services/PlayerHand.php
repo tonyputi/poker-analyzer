@@ -55,7 +55,7 @@ class PlayerHand
      * 
      * @var integer
      */
-    protected $checksum = 0;
+    protected $checksum = [];
 
     /**
      * The cards 
@@ -89,6 +89,8 @@ class PlayerHand
 
     /**
      * Analyze pocker hand
+     * 
+     * @return PlayerHand
      */
     public function analyze()
     {

@@ -14,13 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', fn () => view('welcome'));
 
 Auth::routes();
 
 Route::get('/analyzer', 'PokerAnalyzerController@index')->name('analyzer');
 Route::post('/analyzer', 'PokerAnalyzerController@analyze')->name('analyze');
-
-Route::get('/poker-analyzer', 'PokerAnalyzer2Controller');
