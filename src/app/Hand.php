@@ -51,7 +51,7 @@ class Hand extends Model
      */
     public function getP1CardsImagesAttribute($value)
     {
-        return $this->p1_cards->map(function($card){ return "$card.png"; });        
+        return $this->p1_cards->map(fn ($card) => "{$card}.png");
     }
 
     /**
@@ -62,6 +62,6 @@ class Hand extends Model
      */
     public function getP2CardsImagesAttribute($value)
     {
-        return $this->p2_cards->map(function($card){ return "$card.png"; });
+        return $this->p2_cards->map(fn ($card) => "{$card}.png");
     }    
 }

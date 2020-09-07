@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Services\PokerAnalyzer;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class HandTest extends TestCase
@@ -204,11 +205,7 @@ class HandTest extends TestCase
             [
                 ['5S', '5H', 'AC', 'AD', '6D'], 
                 ['5C', '5D', 'AS', 'AH', '4C']
-            ],
-            // [
-            //     ['5S', '5H', 'AC', 'AD', '6D'], 
-            //     ['5C', '5D', 'AS', 'AH', '6C']
-            // ],
+            ]
         ];        
 
         $analyzer = new PokerAnalyzer;
@@ -274,6 +271,35 @@ class HandTest extends TestCase
             $result = $analyzer->analyze($hand);            
             $this->assertTrue($result['p1_rank'] == 'HighCard');
             $this->assertTrue($result['winner'] == 1);
+        }
+    }
+
+    /**
+     * Test no winning player
+     *
+     * @return void
+     */
+    public function testNoWinningPlayers()
+    {
+        $hands = [
+            [
+                ['5S', '5H', 'AC', 'AD', '6D'], 
+                ['5C', '5D', 'AS', 'AH', '6C']
+            ]
+        ];        
+
+        $analyzer = new PokerAnalyzer;
+
+        foreach($hands as $hand)
+        {
+            try
+            {
+                $result = $analyzer->analyze($hand);
+            }
+            catch(Exception $e)
+            {
+                $this->assertTrue(true);
+            }            
         }
     }
 }

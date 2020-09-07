@@ -15,8 +15,6 @@ src
 │   ├── Http
 │   │   └── Controllers
 |   |       └── PokerAnalyzerController.php
-│   ├── Providers
-│   │   └── RouteServiceProvider.php
 │   ├── Services
 │   │   ├── Card.php
 │   │   ├── PlayerHand.php
@@ -30,8 +28,8 @@ src
 ├── resources
 │   └── views
 │       ├── analyzer.blade.php
-│       ├── auth
 │       ├── layouts
+│       |   └── app.blade.php
 │       └── welcome.blade.php
 ├── routes
 │   └── web.php
