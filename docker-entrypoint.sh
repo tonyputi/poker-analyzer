@@ -2,7 +2,8 @@
 set -e
 
 initialize()
-{    
+{
+    touch /app/storage/database.sqlite
     php /app/artisan db:wipe
     php /app/artisan migrate --seed
     php /app/artisan key:generate
@@ -10,6 +11,10 @@ initialize()
 
 [ ! -d /app/vendor ] && {
     composer install -d /app;
+}
+
+[ ! -f /app/.env ] && {
+    cp /app/.env.example /app/.env
     initialize
 }
 
