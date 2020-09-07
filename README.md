@@ -138,13 +138,27 @@ In this way the software will evalute the input file and print the results on th
 
 # Docker Installation
 
+First clone the project on github
+
+`git clone git@github.com:tonyputi/united-remote.git`
+
+jump inside the project
+
+`cd united-remote/src`
+
+copy the enviroment
+
+`cp .env.example .env`
+
+update .env in according to your database configuration (sqlite/mysql)
+
 build the docker image for the project
 
 `docker build . -t united-remote`
 
 run the docker image
 
-`docker run -it -p 8000:8000 united-remote`
+`docker run -it -p 8080:8000 -v `pwd`/src:/app united-remote`
 
 1. Open your browser and go to http://127.0.0.1:8000
 2. Click on register link on top-right corner and proceed to register a new user
