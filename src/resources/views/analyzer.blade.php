@@ -90,7 +90,7 @@
                     {{ $hands->links() }}
                     @else
                     <div class="alert alert-primary" role="alert">
-                        <strong>Ooops!</strong> No hands found! Upload hands by txt file
+                        <strong>Ooops!</strong> No hands found on db! Please upload your hands.txt file and click on "Analyze" button
                     </div>
                     @endif
                 </div>
